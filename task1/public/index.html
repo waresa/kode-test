@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Posts Microservice</title>
+    <script>
+        async function createPost() {
+            const title = document.getElementById('title').value;
+            const content = document.getElementById('content').value;
+            const userId = document.getElementById('user_id').value;
+
+            const response = await fetch('/api/posts', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    title,
+                    content,
+                    user_id: userId
+                })
+            });
+
+            const result = await response.json();
+            document.getElementById('result').innerText = JSON.stringify(result, null, 2);
+        }
+
+        async function getPostById() {
+            const id = document.getElementById('post_id').value;
+
+            const response = await fetch(`/api/posts/${id}`);
+            const result = await response.json();
+            document.getElementById('result').innerText = JSON.stringify(result, null, 2);
+        }
+
+        async function getPosts() {
+            const page = document.getElementById('page').value;
+
+            const response = await fetch(`/api/posts?page=${page}&limit=1`);
+            const result = await response.json();
+            document.getElementById('result').innerText = JSON.stringify(result, null, 2);
+        }
+    </script>
+</head>
+
+<body>
+    <h1>Create Post</h1>
+    <input type="text" id="title" placeholder="Title">
+    <input type="text" id="content" placeholder="Content">
+    <input type="number" id="user_id" placeholder="User ID">
+    <button onclick="createPost()">Create Post</button>
+
+    <h1>Get Post by ID</h1>
+    <input type="number" id="post_id" placeholder="Post ID">
+    <button onclick="getPostById()">Get Post</button>
+
+    <h1>Get Posts</h1>
+    <input type="number" id="page" placeholder="Page" value="1">
+    <button onclick="getPosts()">Get Posts</button>
+
+    <h2>Result</h2>
+    <pre id="result"></pre>
+</body>
+
+</html>
