@@ -58,4 +58,15 @@ class Post
         $stmt->execute();
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
+
+    // Get total number of pages from the database for pagination based on the limit
+    public function getTotalPages()
+    {
+        $sql = "SELECT CEIL(COUNT(*) / 2) AS totalPages FROM posts";
+        $stmt = $this->connection->prepare($sql);
+        $stmt->execute();
+        $totalPages = $stmt->fetch(\PDO::FETCH_ASSOC)['totalPages'];
+        return $totalPages;
+    }
 }
+

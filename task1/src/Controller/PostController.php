@@ -67,9 +67,11 @@ class PostController
         // Fetch posts with pagination
         $postModel = new Post();
         $posts = $postModel->getPosts($page, $limit);
+        $totalPages = $postModel->getTotalPages($limit);
 
         // Return fetched posts in JSON format
-        $response->getBody()->write(json_encode($posts));
+        $response->getBody()->write(json_encode(['posts' => $posts, 'totalPages' => $totalPages]));
         return $response->withHeader('Content-Type', 'application/json');
     }
+
 }

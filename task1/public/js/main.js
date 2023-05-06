@@ -46,12 +46,13 @@ async function getPostById() {
 
 // Fetch and render posts with pagination
 async function getPosts() {
-    const response = await fetch(`/api/posts?page=${currentPage}&limit=2`);
+    // Make a GET request to the server to get the posts for the current page
+    const response = await fetch(`/api/posts?page=${currentPage}&limit=4`);
     const result = await response.json();
-    renderPosts(result);
+    renderPosts(result.posts);
 
-    // Update page number display
-    document.getElementById('page-number').innerText = `Page ${currentPage}`;
+    // Update the page number element with the total number of pages
+    document.getElementById('page-number').innerText = `Page ${currentPage} of ${result.totalPages}`;
 }
 
 // Render posts on the page
@@ -63,6 +64,9 @@ function renderPosts(posts) {
     posts.forEach(post => {
         const postDiv = document.createElement('div');
         postDiv.className = 'post';
+
+        const postId = document.createElement('p');
+        postId.innerText = `ID: ${post.id}`;
 
         const title = document.createElement('h2');
         title.innerText = post.title;
@@ -80,6 +84,7 @@ function renderPosts(posts) {
         postDiv.appendChild(content);
         postDiv.appendChild(userId);
         postDiv.appendChild(createdDate);
+        postDiv.appendChild(postId);
 
         resultDiv.appendChild(postDiv);
     });
@@ -91,7 +96,8 @@ async function nextPage() {
     const response = await fetch(`/api/posts?page=${nextPage}&limit=2`);
     const result = await response.json();
 
-    if (result.length > 0) {
+    // Check if there are posts on the next page
+    if (result.posts.length > 0) {
         currentPage++;
         getPosts();
     } else {
