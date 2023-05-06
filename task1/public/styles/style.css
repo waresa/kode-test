@@ -1,5 +1,14 @@
 /* style.css */
 
+
+/* remove the increment and decrement from post id input */
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
 body {
     background-color: #444654;
     font-family: 'Roboto', Arial, sans-serif;
@@ -12,7 +21,10 @@ body {
     padding: 0;
 }
 
-h1,
+h1 {
+    margin: 30px 0 10px 0;
+}
+
 h2 {
     margin: 20px 0;
 }
@@ -28,13 +40,13 @@ button:hover {
 .search-bar {
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     gap: 10px;
-    background-color: #343541;
+    background-color: #202123;
     color: #e6e6e6;
     border-radius: 5px;
-    padding: 10px;
+    padding: 30px;
     max-width: 80%;
     width: 50%;
     margin-bottom: 20px;
@@ -61,6 +73,11 @@ button {
     border: 1px solid #ccc;
 }
 
+#search-post-id {
+    width: 70%;
+    outline: none;
+}
+
 button {
     cursor: pointer;
     padding: 10px;
@@ -69,15 +86,15 @@ button {
     border: none;
 }
 
-#search {
-    background-color: #e6e6e6;
+#search-btn {
+    background-color: #404147;
     color: #333;
     padding: 7px 15px;
     border: none;
 }
 
-#search:hover {
-    background-color: #ccc;
+#search-btn:hover {
+    background-color: #949494;
 }
 
 pre {
@@ -150,6 +167,7 @@ pre {
         min-width: 100% !important;
         /* firs child should be a colounmn */
         flex-direction: column !important;
+        padding: 15px 0px !important;
     }
     .container {
         max-width: 90%;

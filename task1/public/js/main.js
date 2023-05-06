@@ -1,21 +1,18 @@
 let currentPage = 1;
 
-//post request to create a new post
+// Create a new post
 async function createPost() {
-
-    // Get the values from the form
+    // Get values from the form
     const title = document.getElementById('title').value;
     const content = document.getElementById('content').value;
     const userId = document.getElementById('user_id').value;
 
-    // Make a POST request to the server
+    // Send POST request to the server
     const response = await fetch('/api/posts', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-
-        // Convert JS object to JSON string
         body: JSON.stringify({ title, content, user_id: userId })
     });
 
@@ -23,22 +20,21 @@ async function createPost() {
     closeCreatePostForm();
     getPosts();
 
+    // Show feedback based on response status
     if (response.status === 200) {
-        //put the newTitle in the feedback
         showFeedback(`${result.message}`);
     } else {
         showFeedback('Error creating post');
     }
 }
 
-//
+// Fetch a post by its ID
 async function getPostById() {
-    const id = document.getElementById('search_post_id').value;
-
+    const id = document.getElementById('search-post-id').value;
     const response = await fetch(`/api/posts/${id}`);
     const result = await response.json();
 
-    // Check if the result is an error message or a post object
+    // Show feedback or render the post
     if (result.error) {
         showFeedback(result.error);
     } else if (!result.title) {
@@ -46,24 +42,24 @@ async function getPostById() {
     } else {
         renderPosts([result]);
     }
-
-    //print result
-    console.log(result);
 }
 
+// Fetch and render posts with pagination
 async function getPosts() {
     const response = await fetch(`/api/posts?page=${currentPage}&limit=2`);
     const result = await response.json();
     renderPosts(result);
 
-    // Update the page number element
+    // Update page number display
     document.getElementById('page-number').innerText = `Page ${currentPage}`;
 }
 
+// Render posts on the page
 function renderPosts(posts) {
     const resultDiv = document.getElementById('result');
     resultDiv.innerHTML = '';
 
+    // Create and append post elements
     posts.forEach(post => {
         const postDiv = document.createElement('div');
         postDiv.className = 'post';
@@ -89,6 +85,7 @@ function renderPosts(posts) {
     });
 }
 
+// Fetch and render the next page of posts
 async function nextPage() {
     const nextPage = currentPage + 1;
     const response = await fetch(`/api/posts?page=${nextPage}&limit=2`);
@@ -102,6 +99,7 @@ async function nextPage() {
     }
 }
 
+// Fetch and render the previous page of posts
 function prevPage() {
     if (currentPage > 1) {
         currentPage--;
@@ -109,14 +107,17 @@ function prevPage() {
     }
 }
 
+// Show create post form
 function openCreatePostForm() {
     document.getElementById('create-post-form').style.display = 'flex';
 }
 
+// Hide create post form
 function closeCreatePostForm() {
     document.getElementById('create-post-form').style.display = 'none';
 }
 
+// Show temporary feedback message
 function showFeedback(message) {
     const feedback = document.getElementById('feedback');
     feedback.innerText = message;
@@ -126,7 +127,7 @@ function showFeedback(message) {
     }, 3000);
 }
 
-// Load the first page of posts on page load
+// Load first page of posts on page load
 document.addEventListener('DOMContentLoaded', () => {
     getPosts();
 });

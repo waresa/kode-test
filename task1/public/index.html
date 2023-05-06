@@ -12,24 +12,32 @@
 </head>
 
 <body>
+    <!-- Feedback popup for displaying messages -->
     <div id="feedback" class="popup"></div>
+
     <main class="container">
         <h1>Posts</h1>
+
+        <!-- Button for opening the create post form -->
+        <button onclick="openCreatePostForm()" id="create-post-btn">Create Post</button>
+
+        <!-- Search bar for searching posts by ID -->
         <div class="search-bar">
             <span>Search Post</span>
-            <input type="number" id="search_post_id" placeholder="Post ID">
+            <input type="number" id="search-post-id" placeholder="Post ID">
             <button onclick="getPostById()" id="search">Search</button>
         </div>
 
-        <button onclick="openCreatePostForm()">Create Post</button>
+        <!-- Container for displaying fetched posts -->
         <pre id="result"></pre>
 
+        <!-- Buttons for navigating between pages -->
         <div class="next-prev-btns">
             <button onclick="prevPage()" id="prev-page">Previous Page</button>
             <button onclick="nextPage()" id="next-page">Next Page</button>
         </div>
 
-
+        <!-- Create post form -->
         <div id="create-post-form" class="popup">
             <h2>Create Post</h2>
             <input type="text" id="title" placeholder="Title">
@@ -39,10 +47,12 @@
             <button onclick="closeCreatePostForm()">Cancel</button>
         </div>
 
-        <!-- show the current page -->
+        <!-- Display the current page number -->
         <span id="page-number"></span>
         <br>
     </main>
+
+    <!-- Load JavaScript code -->
     <script src="js/main.js"></script>
 </body>
 

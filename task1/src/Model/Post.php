@@ -12,6 +12,7 @@ class Post
 
     private $connection;
 
+    // Constructor for initializing the Post object and database connection
     public function __construct($data = null)
     {
         $db = new Database();
@@ -24,6 +25,7 @@ class Post
         }
     }
 
+    // Create a new post in the database
     public function create()
     {
         $sql = "INSERT INTO posts (title, content, user_id) VALUES (?, ?, ?)";
@@ -34,6 +36,7 @@ class Post
         $stmt->execute();
     }
 
+    // Get a post by its ID from the database
     public function getById($id)
     {
         $sql = "SELECT * FROM posts WHERE id = ?";
@@ -43,6 +46,7 @@ class Post
         return $stmt->fetch(\PDO::FETCH_ASSOC);
     }
 
+    // Get posts with pagination from the database
     public function getPosts($page, $limit)
     {
         $offset = ($page - 1) * $limit;
