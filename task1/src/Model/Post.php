@@ -60,10 +60,11 @@ class Post
     }
 
     // Get total number of pages from the database for pagination based on the limit
-    public function getTotalPages()
+    public function getTotalPages($limit)
     {
-        $sql = "SELECT CEIL(COUNT(*) / 2) AS totalPages FROM posts";
+        $sql = "SELECT CEIL(COUNT(*) / :limit) AS totalPages FROM posts";
         $stmt = $this->connection->prepare($sql);
+        $stmt->bindValue(':limit', $limit, \PDO::PARAM_INT);
         $stmt->execute();
         $totalPages = $stmt->fetch(\PDO::FETCH_ASSOC)['totalPages'];
         return $totalPages;

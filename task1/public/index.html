@@ -16,7 +16,7 @@
     <div id="feedback" class="popup"></div>
 
     <main class="container">
-        <h1>Posts</h1>
+        <h1 id="posts-heading">Posts</h1>
 
         <!-- Button for opening the create post form -->
         <button onclick="openCreatePostForm()" id="create-post-btn">Create Post</button>
@@ -26,6 +26,17 @@
             <span>Search Post</span>
             <input type="number" id="search-post-id" placeholder="Post ID">
             <button onclick="getPostById()" id="search">Search</button>
+        </div>
+
+        <!-- Options for chosing posts per page -->
+        <div class="pagination-limit">
+            <span>Posts per page:</span>
+            <select id="limit-input">
+                <option value="2">2</option>
+                <option value="5">5</option>
+                <option value="10">10</option>
+                <option value="20">20</option>
+            </select>
         </div>
 
         <!-- Container for displaying fetched posts -->
@@ -48,7 +59,11 @@
         </div>
 
         <!-- Display the current page number -->
-        <span id="page-number"></span>
+        <div class="page-num-container">
+            <span>Page</span>
+            <input type="number" id="page-input" value="1" min="1">
+            <span id="total-pages"></span>
+        </div>
         <br>
     </main>
 

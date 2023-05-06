@@ -46,13 +46,50 @@ async function getPostById() {
 
 // Fetch and render posts with pagination
 async function getPosts() {
+    const limit = document.getElementById('limit-input').value || 2;
+
     // Make a GET request to the server to get the posts for the current page
-    const response = await fetch(`/api/posts?page=${currentPage}&limit=4`);
+    const response = await fetch(`/api/posts?page=${currentPage}&limit=${limit}`);
     const result = await response.json();
+
+    // Check if the input page number is higher than the total number of pages
+    if (currentPage > result.totalPages) {
+        currentPage = result.totalPages;
+        return getPosts();
+    }
+
     renderPosts(result.posts);
 
-    // Update the page number element with the total number of pages
-    document.getElementById('page-number').innerText = `Page ${currentPage} of ${result.totalPages}`;
+    // Update the page-input value with the current page number
+    document.getElementById('page-input').value = currentPage;
+
+    // Update the total-pages span element with the total number of pages
+    document.getElementById('total-pages').innerText = ` of ${result.totalPages}`;
+}
+
+//update page number based on input
+async function updatePage() {
+    const newPage = parseInt(document.getElementById('page-input').value);
+    const limit = document.getElementById('limit-input').value || 2;
+
+    const response = await fetch(`/api/posts?page=1&limit=${limit}`);
+    const result = await response.json();
+    const totalPages = result.totalPages;
+
+    if (newPage > 0 && newPage <= totalPages) {
+        currentPage = newPage;
+    } else if (newPage > totalPages) {
+        currentPage = totalPages;
+        document.getElementById('page-input').value = currentPage;
+    }
+
+    getPosts();
+}
+
+//update limit and page number based on input
+function updateLimit() {
+    updatePage();
+    getPosts();
 }
 
 // Render posts on the page
@@ -132,6 +169,14 @@ function showFeedback(message) {
         feedback.style.display = 'none';
     }, 3000);
 }
+
+// event listeners fopr input elements
+document.getElementById('page-input').addEventListener('change', updatePage);
+document.getElementById('limit-input').addEventListener('change', updateLimit);
+
+// event listeners for header
+document.getElementById('posts-heading').addEventListener('click', () => location.reload());
+
 
 // Load first page of posts on page load
 document.addEventListener('DOMContentLoaded', () => {

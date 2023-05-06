@@ -61,6 +61,7 @@ button:hover {
     margin: 20px 0;
 }
 
+select,
 input[type="text"],
 input[type="number"],
 button {
@@ -182,4 +183,29 @@ pre {
         max-width: 80% !important;
         display: none;
     }
+}
+
+.page-num-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+#page-input {
+    width: 50px;
+    text-align: center;
+}
+
+.pagination-limit {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+#posts-heading {
+    cursor: pointer;
 }
