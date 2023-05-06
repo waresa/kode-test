@@ -1,0 +1,167 @@
+/* style.css */
+
+body {
+    background-color: #444654;
+    font-family: 'Roboto', Arial, sans-serif;
+    color: #ffffff;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding: 0;
+}
+
+h1,
+h2 {
+    margin: 20px 0;
+}
+
+span {
+    font-size: large;
+}
+
+button:hover {
+    background-color: #404147;
+}
+
+.search-bar {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    background-color: #343541;
+    color: #e6e6e6;
+    border-radius: 5px;
+    padding: 10px;
+    max-width: 80%;
+    width: 50%;
+    margin-bottom: 20px;
+}
+
+.next-prev-btns {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin: 20px 0;
+}
+
+input[type="text"],
+input[type="number"],
+button {
+    display: block;
+    padding: 5px;
+    font-size: 16px;
+    border-radius: 5px;
+    color: #e6e6e6;
+    background-color: #343541;
+    border: 1px solid #ccc;
+}
+
+button {
+    cursor: pointer;
+    padding: 10px;
+    background-color: #343541;
+    color: #fff;
+    border: none;
+}
+
+#search {
+    background-color: #e6e6e6;
+    color: #333;
+    padding: 7px 15px;
+    border: none;
+}
+
+#search:hover {
+    background-color: #ccc;
+}
+
+pre {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    margin-top: 10px;
+    padding: 30px;
+    background-color: #202123;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    width: 50%;
+    max-width: 80%;
+    color: #333;
+}
+
+.popup {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 25px;
+    background-color: #202123;
+    border: 1px solid #949494;
+    border-radius: 5px;
+    flex-direction: column;
+    justify-content: center;
+    color: #fff;
+}
+
+#create-post-form {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    max-width: 80%;
+}
+
+.post {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 10px;
+    width: 90%;
+    height: 90%;
+    background-color: #343541;
+    color: #e6e6e6;
+    border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+
+/* for phones */
+
+@media screen and (max-width: 600px) {
+    .search-bar {
+        min-width: 100% !important;
+        /* firs child should be a colounmn */
+        flex-direction: column !important;
+    }
+    .container {
+        max-width: 90%;
+    }
+    pre {
+        width: 90%;
+    }
+    .popup {
+        max-width: 90%;
+    }
+    #create-post-form {
+        max-width: 80% !important;
+        display: none;
+    }
+}

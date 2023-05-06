@@ -74,7 +74,7 @@ class PostController
     }
 
     // Fetch multiple posts with pagination
-    public function getPosts(Request $request, Response $response, array $args): Response
+    public function getPosts(Request $request, Response $response): Response
     {
 
         //get the page and limit query parameters from the request

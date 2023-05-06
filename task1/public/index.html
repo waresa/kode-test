@@ -4,64 +4,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles/style.css">
     <title>Posts Microservice</title>
-    <script>
-        async function createPost() {
-            const title = document.getElementById('title').value;
-            const content = document.getElementById('content').value;
-            const userId = document.getElementById('user_id').value;
+    <style>
 
-            const response = await fetch('/api/posts', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    title,
-                    content,
-                    user_id: userId
-                })
-            });
-
-            const result = await response.json();
-            document.getElementById('result').innerText = JSON.stringify(result, null, 2);
-        }
-
-        async function getPostById() {
-            const id = document.getElementById('post_id').value;
-
-            const response = await fetch(`/api/posts/${id}`);
-            const result = await response.json();
-            document.getElementById('result').innerText = JSON.stringify(result, null, 2);
-        }
-
-        async function getPosts() {
-            const page = document.getElementById('page').value;
-
-            const response = await fetch(`/api/posts?page=${page}&limit=1`);
-            const result = await response.json();
-            document.getElementById('result').innerText = JSON.stringify(result, null, 2);
-        }
-    </script>
+    </style>
 </head>
 
 <body>
-    <h1>Create Post</h1>
-    <input type="text" id="title" placeholder="Title">
-    <input type="text" id="content" placeholder="Content">
-    <input type="number" id="user_id" placeholder="User ID">
-    <button onclick="createPost()">Create Post</button>
+    <div id="feedback" class="popup"></div>
+    <main class="container">
+        <h1>Posts</h1>
+        <div class="search-bar">
+            <span>Search Post</span>
+            <input type="number" id="search_post_id" placeholder="Post ID">
+            <button onclick="getPostById()" id="search">Search</button>
+        </div>
 
-    <h1>Get Post by ID</h1>
-    <input type="number" id="post_id" placeholder="Post ID">
-    <button onclick="getPostById()">Get Post</button>
+        <button onclick="openCreatePostForm()">Create Post</button>
+        <pre id="result"></pre>
 
-    <h1>Get Posts</h1>
-    <input type="number" id="page" placeholder="Page" value="1">
-    <button onclick="getPosts()">Get Posts</button>
+        <div class="next-prev-btns">
+            <button onclick="prevPage()" id="prev-page">Previous Page</button>
+            <button onclick="nextPage()" id="next-page">Next Page</button>
+        </div>
 
-    <h2>Result</h2>
-    <pre id="result"></pre>
+
+        <div id="create-post-form" class="popup">
+            <h2>Create Post</h2>
+            <input type="text" id="title" placeholder="Title">
+            <input type="text" id="content" placeholder="Content">
+            <input type="number" id="user_id" placeholder="User ID">
+            <button onclick="createPost()">Create Post</button>
+            <button onclick="closeCreatePostForm()">Cancel</button>
+        </div>
+
+        <!-- show the current page -->
+        <span id="page-number"></span>
+        <br>
+    </main>
+    <script src="js/main.js"></script>
 </body>
 
 </html>

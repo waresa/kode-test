@@ -31,8 +31,8 @@ $app->get('/api/posts/{id}', function (Request $request, Response $response, arr
     return $postController->getById($request, $response, $args);
 });
 
-$app->get('/api/posts', function (Request $request, Response $response, array $args) use ($postController) {
-    return $postController->getPosts($request, $response, $args);
+$app->get('/api/posts', function (Request $request, Response $response) use ($postController) {
+    return $postController->getPosts($request, $response);
 });
 
 $app->run();
