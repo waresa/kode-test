@@ -2,6 +2,7 @@
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\Factory\AppFactory;
+use Slim\Middleware\ErrorMiddleware;
 
 require __DIR__ . '/../vendor/autoload.php';
 
@@ -11,7 +12,9 @@ $app = AppFactory::create();
 $app->addRoutingMiddleware();
 
 // Add error middleware
-$app->addErrorMiddleware(true, true, true);
+$errorMiddleware = $app->addErrorMiddleware(true, true, true);
+$errorHandler = $errorMiddleware->getDefaultErrorHandler();
+$errorHandler->forceContentType('application/json');
 
 // Instantiate PostController
 $postController = new \App\Controller\PostController();
@@ -20,6 +23,17 @@ $app->get('/', function (Request $request, Response $response) {
     $file = __DIR__ . '/index.html';
     $response->getBody()->write(file_get_contents($file));
     return $response->withHeader('Content-Type', 'text/html');
+});
+
+//test route
+$app->get('/test-json', function (Request $request, Response $response) {
+    $data = [
+        'status' => 'success',
+        'message' => 'This is a simple JSON test route'
+    ];
+
+    $response->getBody()->write(json_encode($data));
+    return $response->withHeader('Content-Type', 'application/json');
 });
 
 // Add your routes here
