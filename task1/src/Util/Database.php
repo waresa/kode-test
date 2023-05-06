@@ -21,7 +21,7 @@ class Database
             $this->connection = new \PDO($dsn, $user, $password);
             $this->connection->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
 
-        // if connection fails throw an exception
+        // if connection fails throw an exception and display the error message
         } catch (\PDOException $e) {
             throw new \PDOException($e->getMessage(), (int)$e->getCode());
         }
