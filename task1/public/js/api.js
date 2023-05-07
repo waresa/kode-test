@@ -23,8 +23,10 @@ async function createPost() {
     // Show feedback based on response status
     if (response.status === 200) {
         showFeedback(`${result.message}`);
-    } else {
-        showFeedback('Error creating post');
+    } else if (response.status === 400) {
+        showFeedback(`${result.error}`);
+    } else if (response.status === 500) {
+        showFeedback('Internal server error occurred');
     }
 }
 

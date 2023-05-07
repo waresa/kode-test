@@ -70,4 +70,3 @@ class Post
         return $totalPages;
     }
 }
-
