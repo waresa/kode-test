@@ -1,7 +1,9 @@
 <?php 
 
-
 $array = range(1, 1000000); // Generate an array with 1000000 elements
+
+//randomize the array
+shuffle($array);
 
 $times = array();
 
@@ -59,4 +61,27 @@ foreach ($average_times as $loop => $average_time) {
     echo "Loop $loop: " . $average_time . " seconds<br>";
 }
 
+// Results:
+// 1:
+// Loop B: 0.0096433758735657 seconds
+// Loop A: 0.011380925178528 seconds
+// Loop C: 0.011663844585419 seconds
+// Loop D: 0.030632042884827 seconds
+//2:
+// Loop B: 0.0092501068115234 seconds
+// Loop A: 0.011196420192719 seconds
+// Loop C: 0.011532874107361 seconds
+// Loop D: 0.030122628211975 seconds
+//3:
+// Loop B: 0.0092702555656433 seconds
+// Loop C: 0.011247909069061 seconds
+// Loop A: 0.011366536617279 seconds
+// Loop D: 0.03011958360672 seconds
+//4:
+// Loop B: 0.0091671776771545 seconds
+// Loop C: 0.011183226108551 seconds
+// Loop A: 0.011333756446838 seconds
+// Loop D: 0.030087449550629 seconds
+
 ?>
+
